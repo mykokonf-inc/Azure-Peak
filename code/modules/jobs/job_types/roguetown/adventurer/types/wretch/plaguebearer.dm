@@ -5,7 +5,7 @@
 	outfit = /datum/outfit/job/roguetown/wretch/plaguebearer
 	cmode_music = 'sound/music/combat_physician.ogg'
 	category_tags = list(CTAG_WRETCH)
-	traits_applied = list( TRAIT_CICERONE, TRAIT_NOSTINK, TRAIT_MEDICINE_EXPERT, TRAIT_ALCHEMY_EXPERT)
+	traits_applied = list( TRAIT_CICERONE, TRAIT_NOSTINK, TRAIT_MEDICINE_EXPERT, TRAIT_ALCHEMY_EXPERT, TRAIT_PLAGUEBRINGER_WHISPER)
 	maximum_possible_slots = 1 //They spawn with killer's ice lol I'm limiting this shit 
 	subclass_stats = list(
 		STATKEY_INT = 4,
@@ -54,6 +54,7 @@
 		/obj/item/reagent_containers/glass/bottle/rogue/strongpoison = 1,
 		/obj/item/reagent_containers/glass/bottle/alchemical/healthpot = 1,	//Small health vial
 		/obj/item/rogueweapon/huntingknife/idagger/steel/corroded = 1,
+		/obj/item/book/rogue/disease_compendium = 1,
 		)
 	H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/diagnose/secular)
 	H.dna.species.soundpack_m = new /datum/voicepack/male/wizard()
@@ -69,6 +70,7 @@
 			if("LET THERE BE PLAGUE!!!")
 				H.adjust_skillrank_up_to(/datum/skill/magic/arcane, 4, TRUE)
 				backr = /obj/item/rogueweapon/woodstaff/toper
+				beltl = /obj/item/rogueweapon/huntingknife/idagger/steel/ritual_plague
 				H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/touch/prestidigitation)
 				H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/projectile/acidsplash)
 		wretch_select_bounty(H)

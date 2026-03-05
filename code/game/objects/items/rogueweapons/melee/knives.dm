@@ -615,6 +615,119 @@
 	wdefense = 9
 	max_integrity = 200
 
+/obj/item/rogueweapon/huntingknife/idagger/steel/ritual_plague
+	name = "Ritual Plague Dagger"
+	desc = "A jagged, ceremonial blade wrapped in tattered purple ribbons. The steel has a sickly, iridescent sheen, and the edge drips with a faint, viscous residue. Merely holding it makes your skin crawl with an unnatural itch. (RMB to select disease)"
+	icon_state = "devilsknife"
+	icon = 'icons/roguetown/weapons/daggers32.dmi'
+	force = 22
+	max_integrity = 200
+	var/mob/living/last_bleed_target
+	var/last_bleed_rate = 0
+	var/selected_disease_type = /datum/disease/ash_blight
+	var/selected_disease_name = "Ash Blight"
+	COOLDOWN_DECLARE(disease_select_cooldown)
+	COOLDOWN_DECLARE(disease_spread_cooldown)
+
+/obj/item/rogueweapon/huntingknife/idagger/steel/ritual_plague/verb/select_disease()
+	set name = "Select Disease"
+	set category = null
+	set src in usr
+	if(usr?.get_active_held_item() != src)
+		to_chat(usr, span_warning("I need to be holding [src] to set its disease."))
+		return
+	choose_disease(usr)
+
+/obj/item/rogueweapon/huntingknife/idagger/steel/ritual_plague/rmb_self(mob/user)
+	if(user?.get_active_held_item() != src)
+		return
+	choose_disease(user)
+
+/obj/item/rogueweapon/huntingknife/idagger/steel/ritual_plague/examine(mob/user)
+	. = ..()
+	if(!HAS_TRAIT(user, TRAIT_PLAGUEBRINGER_WHISPER))
+		. += span_warning("The blade's secrets are beyond my understanding.")
+		return
+	. += span_notice("Currently attuned to spread: <b>[selected_disease_name]</b>")
+	if(COOLDOWN_STARTED(src, disease_spread_cooldown) && !COOLDOWN_FINISHED(src, disease_spread_cooldown))
+		var/time_left = COOLDOWN_TIMELEFT(src, disease_spread_cooldown)
+		var/minutes_left = round(time_left / 600)
+		var/seconds_left = round((time_left % 600) / 10)
+		. += span_warning("Plague dormancy: <b>[minutes_left]m [seconds_left]s</b> remaining.")
+	else
+		. += span_notice("The blade is <b>ready</b> to spread plague.")
+
+/obj/item/rogueweapon/huntingknife/idagger/steel/ritual_plague/proc/choose_disease(mob/user)
+	if(!user || !isliving(user))
+		return
+	if(!HAS_TRAIT(user, TRAIT_PLAGUEBRINGER_WHISPER))
+		to_chat(user, span_warning("The blade does not respond to me."))
+		return
+	if(COOLDOWN_STARTED(src, disease_select_cooldown) && !COOLDOWN_FINISHED(src, disease_select_cooldown))
+		var/time_left = COOLDOWN_TIMELEFT(src, disease_select_cooldown)
+		var/seconds_left = round(time_left / 10)
+		to_chat(user, span_warning("The blade is silent. Try again in [seconds_left] seconds."))
+		return
+	// Limited disease selection for Ritual Plague Dagger
+	var/list/allowed_diseases = list(
+		/datum/disease/ash_blight,
+		/datum/disease/vision_rot,
+		/datum/disease/blood_rot
+	)
+	var/list/choices = list()
+	for(var/disease_path in allowed_diseases)
+		var/datum/disease/D = new disease_path()
+		var/display_name = D.name
+		qdel(D)
+		if(!display_name || display_name == "No disease")
+			continue
+		choices[display_name] = disease_path
+	if(!length(choices))
+		to_chat(user, span_warning("No diseases available."))
+		return
+	var/choice = input(user, "Choose a disease", "Ritual Plague Dagger") as null|anything in sortList(choices)
+	if(!choice)
+		return
+	selected_disease_name = "[choice]"
+	selected_disease_type = choices[choice]
+	COOLDOWN_START(src, disease_select_cooldown, 10 MINUTES)
+	to_chat(user, span_notice("The dagger will now infect with [selected_disease_name]."))
+
+/obj/item/rogueweapon/huntingknife/idagger/steel/ritual_plague/pre_attack(atom/target, mob/living/user, params)
+	if(user && !HAS_TRAIT(user, TRAIT_PLAGUEBRINGER_WHISPER))
+		to_chat(user, span_warning("The blade refuses my grip."))
+		return TRUE
+	if(istype(target, /mob/living))
+		var/mob/living/L = target
+		last_bleed_target = L
+		last_bleed_rate = L.get_bleed_rate()
+	else
+		last_bleed_target = null
+		last_bleed_rate = 0
+	return ..()
+
+/obj/item/rogueweapon/huntingknife/idagger/steel/ritual_plague/afterattack(atom/target, mob/user, proximity, click_parameters)
+	. = ..()
+	if(!user)
+		return
+	var/disease_path = selected_disease_type ? selected_disease_type : /datum/disease/grime_flu
+	if(!disease_path)
+		return
+	if(!isliving(target))
+		return
+	var/mob/living/L = target
+	if(rand(1, 100) <= 30)
+		// Check disease spread cooldown
+		if(COOLDOWN_STARTED(src, disease_spread_cooldown) && !COOLDOWN_FINISHED(src, disease_spread_cooldown))
+			var/time_left = COOLDOWN_TIMELEFT(src, disease_spread_cooldown)
+			var/minutes_left = round(time_left / 600)
+			var/seconds_left = round((time_left % 600) / 10)
+			to_chat(user, span_warning("The blade's plague is dormant. It will be ready in [minutes_left]m [seconds_left]s."))
+			return
+		to_chat(user, span_notice("The blade spreads [selected_disease_name]!"))
+		L.ForceContractDisease(new disease_path(), FALSE, TRUE)
+		COOLDOWN_START(src, disease_spread_cooldown, 5 MINUTES)
+
 /obj/item/rogueweapon/huntingknife/idagger/steel/parrying/hand
 	name = "'Repeta'"
 	desc = "The left hand of the right hand, this sturdy length of steel serves as a perfect counterpart to any offense."

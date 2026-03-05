@@ -89,6 +89,8 @@
 #define TRAIT_PURITAN "Otavan Emissary"
 #define TRAIT_PURITAN_ADVENTURER "Interrogator"
 #define TRAIT_HEARTFELT "Heartfelt"
+#define TRAIT_PLAGUEBRINGER_WHISPER "Plaguebringer's Whisper"
+#define TRAIT_PLAGUE_MASK_WORN "Plague Mask Protection"
 #define TRAIT_MIRROR_MAGIC "Mirror Magic"
 #define TRAIT_WITCH "They fear me, but I am useful to them."
 #define TRAIT_INFINITE_ENERGY "Boundless Energy" //infinite fatigue (blue bar) but not infinite stamina
@@ -431,6 +433,8 @@ GLOBAL_LIST_INIT(roguetraits, list(
 	TRAIT_NOPAINSTUN = span_info("Pain does not impair me."),
 	TRAIT_NOBREATH = span_info("I do not breathe."),
 	TRAIT_TOXIMMUNE = span_info("Poisons do nothing to me."),
+	TRAIT_PLAGUEBRINGER_WHISPER = span_necrosis("Your connection to the blade allows you to resonate with specific strains of corruption."),
+	TRAIT_PLAGUE_MASK_WORN = span_warning("I wear protection against plague contact transmission."),
 	TRAIT_ZOMBIE_IMMUNE = span_info("Deadite bites cannot infect me."),
 	TRAIT_NOHUNGER = span_info("I do not hunger, or thirst."),
 	TRAIT_DARKVISION = span_info("I can see better in the dark."),
@@ -844,6 +848,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 #define TRAIT_CLAN_LEADER "clan_leader"
 #define TRAIT_IN_FRENZY "in_frenzy"
+#define TRAIT_FLASH_FRENZY_CONTROL_LOSS "flash_frenzy_control_loss"
 #define TRAIT_VIOLATOR "Violator of the Coven"
 #define TRAIT_TORPOR "Endless Slumber"
 /// Trait given as a result of vampiric activities

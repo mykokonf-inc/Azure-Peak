@@ -79,6 +79,10 @@
 	charge_was_blocked_by_cooldown = FALSE
 	var/list/modifiers = params2list(params)
 
+	// Block all input during Flash-Frenzy episodes
+	if(HAS_TRAIT(mob, TRAIT_FLASH_FRENZY_CONTROL_LOSS))
+		return
+
 	if(mob.incapacitated())
 		return
 
@@ -198,6 +202,10 @@
 	return TRUE
 
 /client/MouseUp(object, location, control, params)
+	// Block all input during Flash-Frenzy episodes
+	if(HAS_TRAIT(mob, TRAIT_FLASH_FRENZY_CONTROL_LOSS))
+		return
+
 	if(charging && isliving(mob))
 		update_to_mob(mob, 0)
 
@@ -367,6 +375,10 @@
 	. = 1
 
 /client/MouseDrag(src_object,atom/over_object,src_location,over_location,src_control,over_control,params)
+
+	// Block all input during Flash-Frenzy episodes
+	if(HAS_TRAIT(mob, TRAIT_FLASH_FRENZY_CONTROL_LOSS))
+		return
 
 	if(mob.incapacitated())
 		return

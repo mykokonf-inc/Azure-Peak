@@ -82,6 +82,9 @@
 /datum/antagonist/werewolf/on_gain()
 	greet()
 	owner.special_role = name
+	if(owner.current)
+		ADD_TRAIT(owner.current, TRAIT_VIRUSIMMUNE, "[type]")
+		owner.current.cure_all_diseases(FALSE)
 	if(increase_votepwr)
 		forge_werewolf_objectives()
 	
@@ -92,6 +95,8 @@
 	if(!silent && owner.current)
 		to_chat(owner.current,span_danger("I am no longer a [special_role]!"))
 	owner.special_role = null
+	if(owner.current)
+		REMOVE_TRAIT(owner.current, TRAIT_VIRUSIMMUNE, "[type]")
 	return ..()
 
 /datum/antagonist/werewolf/proc/add_objective(datum/objective/O)

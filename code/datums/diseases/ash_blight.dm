@@ -1,0 +1,93 @@
+// ASH BLIGHT DISEASE - Moderate contact disease with stat penalties and scratching
+
+/datum/disease/ash_blight
+	name = "Ash Blight"
+	desc = "A gritty rash that saps focus and speed."
+	max_stages = 1
+	stage_prob = 0
+	spread_flags = DISEASE_SPREAD_CONTACT_FLUIDS | DISEASE_SPREAD_CONTACT_SKIN
+	disease_flags = CAN_CARRY | CAN_RESIST
+	severity = DISEASE_SEVERITY_MEDIUM
+	viable_mobtypes = list(/mob/living)
+	var/list/stat_mod_keys = null
+
+/datum/disease/ash_blight/after_add()
+	. = ..()
+	var/mob/living/L = affected_mob
+	if(!istype(L))
+		return
+	apply_stat_mods(L)
+	RegisterSignal(L, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
+	if(ishuman(L))
+		schedule_scratch()
+
+/datum/disease/ash_blight/proc/apply_stat_mods(mob/living/L)
+	if(!stat_mod_keys)
+		stat_mod_keys = list()
+	var/list/stats = list(
+		STATKEY_PER = -4,
+		STATKEY_SPD = -2
+	)
+	for(var/stat in stats)
+		var/key = "ash_blight_[stat]_\ref[src]"
+		stat_mod_keys[stat] = key
+		L.change_stat(stat, stats[stat], key)
+
+/datum/disease/ash_blight/remove_disease()
+	var/mob/living/L = affected_mob
+	if(istype(L))
+		UnregisterSignal(L, COMSIG_PARENT_EXAMINE)
+		if(stat_mod_keys)
+			for(var/stat in stat_mod_keys)
+				L.change_stat(stat, 0, stat_mod_keys[stat])
+	return ..()
+
+/datum/disease/ash_blight/proc/on_examine(datum/source, mob/user, list/examine_list)
+	SIGNAL_HANDLER
+	examine_list += span_warning("The skin is disfigured with ashen blotches and a weeping ulcer, forming a revolting crust.")
+
+/datum/disease/ash_blight/proc/schedule_scratch()
+	addtimer(CALLBACK(src, PROC_REF(scratch_tick)), rand(15, 25) SECONDS)
+
+/datum/disease/ash_blight/proc/scratch_tick()
+	if(QDELETED(src) || !affected_mob || !ishuman(affected_mob))
+		return
+	if(affected_mob.stat == DEAD)
+		schedule_scratch()
+		return
+	var/mob/living/carbon/human/H = affected_mob
+	H.emote("scratch", intentional = FALSE)
+	
+	// Damage and message to player
+	H.adjustBruteLoss(2)
+	H.Stun(5) // 0.5 seconds stun
+	var/list/scratch_messages = list(
+		span_warning("My skin itches unbearably, and I tear scabs off with my nails."),
+		span_warning("Ulcers split under my fingers, leaking foul fluid."),
+		span_warning("I claw at my skin, but the itching won't stop."),
+		span_warning("Ashen growths crumble under my nails, leaving bleeding marks."),
+		span_warning("I scratch my skin raw, but relief never comes.")
+	)
+	to_chat(H, pick(scratch_messages))
+	
+	// 20% chance to cause bleeding wound from scratching
+	if(prob(20) && length(H.bodyparts))
+		var/obj/item/bodypart/BP = pick(H.bodyparts)
+		if(BP)
+			BP.add_wound(/datum/wound/slash/small)
+			to_chat(H, span_danger("My scratching opened a bleeding wound!"))
+	
+	// Spread to nearby mobs in 1 tile radius
+	for(var/mob/living/carbon/human/target in oview(1, H))
+		if(target == H)
+			continue
+		if(!inLineOfTravel(H, target))
+			continue
+		if(HAS_TRAIT(target, TRAIT_PLAGUE_MASK_WORN))
+			continue
+		var/disease_chance = 10
+		if(target.get_item_by_slot(SLOT_WEAR_MASK))
+			disease_chance = max(1, round(disease_chance * 0.7))
+		if(prob(disease_chance))
+			target.ForceContractDisease(src, TRUE, FALSE)
+	schedule_scratch()

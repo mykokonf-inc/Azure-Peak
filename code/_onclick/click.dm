@@ -102,6 +102,9 @@
 
 	if(notransform)
 		return
+	// Block all player input during Flash-Frenzy episodes
+	if(HAS_TRAIT(src, TRAIT_FLASH_FRENZY_CONTROL_LOSS))
+		return
 
 	if(SEND_SIGNAL(src, COMSIG_MOB_CLICKON, A, params) & COMSIG_MOB_CANCEL_CLICKON)
 		return

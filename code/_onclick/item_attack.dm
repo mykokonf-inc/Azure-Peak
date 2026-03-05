@@ -155,7 +155,7 @@
 
 	var/datum/intent/cached_intent = user.used_intent
 	if(swingdelay)
-		if(!user.used_intent.noaa && isnull(user.mind))
+		if(user.used_intent && !user.used_intent.noaa && isnull(user.mind))
 			if(get_dist(get_turf(user), get_turf(M)) <= user.used_intent.reach)
 				user.do_attack_animation(M, user.used_intent.animname, user.used_intent.masteritem, used_intent = user.used_intent, simplified = TRUE)
 		sleep(swingdelay)
@@ -220,6 +220,10 @@
 
 	SEND_SIGNAL(src, COMSIG_ITEM_ATTACK_SUCCESS, M, user)
 	SEND_SIGNAL(M, COMSIG_ITEM_ATTACKED_SUCCESS, src, user)
+	if(!user.used_intent?.tranged && iscarbon(user) && iscarbon(M))
+		var/mob/living/carbon/attacker = user
+		var/mob/living/carbon/target = M
+		attacker.SpreadContactDiseasesOnContact(target, 30)
 	if(user.zone_selected == BODY_ZONE_PRECISE_R_INHAND)
 		var/offh = 0
 		var/obj/item/W = M.held_items[1]

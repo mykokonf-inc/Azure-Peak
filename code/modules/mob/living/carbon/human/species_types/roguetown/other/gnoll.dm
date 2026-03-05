@@ -40,7 +40,8 @@
 		TRAIT_NUDIST,
 		TRAIT_HERESIARCH, //Just because I'm putting their spawns here, that's all.
 		TRAIT_ZURCH,
-		TRAIT_UNLYCKERABLE //Just stop
+		TRAIT_VIRUSIMMUNE,
+		TRAIT_UNLYCKERABLE, //Just stop
 	)
 	inherent_biotypes = MOB_HUMANOID
 	armor = 30
@@ -81,6 +82,7 @@
 
 /datum/species/gnoll/on_species_gain(mob/living/carbon/C, datum/species/old_species)
 	. = ..()
+	C.cure_all_diseases(FALSE)
 	RegisterSignal(C, COMSIG_MOB_SAY, PROC_REF(handle_speech))
 	C.icon_state = "firepelt"
 	C.base_pixel_x = -8
