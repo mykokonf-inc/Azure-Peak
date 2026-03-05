@@ -4,7 +4,7 @@
 	typepath = /datum/round_event/disease_sickness
 	weight = 7
 	max_occurrences = 6
-	min_players = 50
+	min_players = 80
 	earliest_start = 8 MINUTES
 
 	tags = list(
