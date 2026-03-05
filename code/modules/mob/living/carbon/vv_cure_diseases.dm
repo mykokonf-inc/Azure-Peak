@@ -19,3 +19,5 @@
 			D.cure(TRUE)
 		log_admin("[key_name(usr)] has cured all diseases ([disease_count]) from [key_name(src)] and granted immunity.")
 		message_admins("<span class='notice'>[key_name_admin(usr)] has cured all diseases ([disease_count]) from [key_name_admin(src)].</span>")
+
+#undef VV_HK_CURE_DISEASES
