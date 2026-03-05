@@ -560,7 +560,7 @@
 	if(!bleed_amount)
 		bleed_amount = H.get_bleed_rate()
 	var/is_crawling = H.resting || !(H.mobility_flags & MOBILITY_STAND)
-	if(is_crawling && bleed_amount > 0 && prob(30))
+	if(is_crawling && bleed_amount > 0 && prob(5))
 		H.ForceContractDisease(new /datum/disease/derma_tick(), TRUE, TRUE)
 
 /turf/open/floor/rogue/dirt/cardinal_smooth(adjacencies)
