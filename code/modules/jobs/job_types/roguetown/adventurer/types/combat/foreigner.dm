@@ -634,7 +634,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	smeltresult = /obj/item/ingot/bronze
 	max_integrity = 150
-	sheathe_icon = "makhaira"
+	sheathe_icon = "kopis"
 
 /obj/item/clothing/suit/roguetown/shirt/tribalrag/gladiator
 	slot_flags = ITEM_SLOT_ARMOR|ITEM_SLOT_SHIRT
@@ -797,7 +797,7 @@
 
 /datum/intent/axe/chop/arbelos
 	damfactor = 1.3
-	clickcd = 10 //Quicker than a conventional axe, but slower than a katar. 
+	clickcd = CLICK_CD_QUICK //Quicker than a conventional axe, but slower than a katar.
 
 /datum/intent/axe/cut/arbelos
 	damfactor = 1.15
@@ -806,7 +806,7 @@
 /datum/intent/katar/thrust/arbelos
 	penfactor = 20
 	damfactor = 0.8
-	clickcd = 10 //Slower than a regular thrust, with slightly less penetration and damage. Inverse to the katar.
+	clickcd = CLICK_CD_QUICK //Slower than a regular thrust, with slightly less penetration and damage. Inverse to the katar.
 
 /obj/item/rogueweapon/sword/long/greatkhopesh
 	name = "apophis" //Kriegmesser analogue.
