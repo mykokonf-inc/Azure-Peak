@@ -8,7 +8,10 @@
 	icon_state = "curebook_0"
 	base_icon_state = "curebook"
 	open = FALSE
-	current_category = "All"
+	var/current_category = "All"
+	var/list/categories = list("All")
+	var/current_recipe
+	var/search_query = ""
 	var/bg_rsc = 'html/disease_compendium_bg.png'
 	var/bg_name = "disease_compendium_bg.png"
 	slot_flags = ITEM_SLOT_HIP
@@ -78,6 +81,9 @@
 
 /obj/item/book/rogue/disease_compendium/update_icon()
 	icon_state = "[base_icon_state]_[open]"
+
+/obj/item/book/rogue/disease_compendium/proc/generate_recipe_html(path, mob/user)
+	return generate_recipe_detail_html(path, user)
 
 /obj/item/book/rogue/disease_compendium/generate_html(mob/user)
 	var/client/client = user
