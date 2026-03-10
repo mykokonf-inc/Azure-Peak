@@ -71,7 +71,8 @@
 		/obj/item/clothing/mask/rogue/physician = 2,
 		/obj/item/book/rogue/disease_compendium = 1,
 		/obj/item/storage/keyring = 1,
-		/obj/item/roguekey/keeper = 1
+		/obj/item/roguekey/keeper = 1,
+		/obj/item/mini_flagpole/apothecary,
 	)
 	if(H.mind)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/diagnose/secular)
