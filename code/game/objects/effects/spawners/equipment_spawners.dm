@@ -250,6 +250,9 @@
 		/obj/item/rogueweapon/sword/rapier/silver = 1,
 		/obj/item/rogueweapon/whip/silver = 1,
 		/obj/item/rogueweapon/woodstaff/quarterstaff/silver = 1,
+		/obj/item/rogueweapon/sword/long/exe/silver = 1,
+		/obj/item/rogueweapon/greatsword/silver = 1,
+		/obj/item/rogueweapon/handclaw/gronn/silver = 1,
 	)
 
 /obj/effect/spawner/lootdrop/decrepit_equipment_spawner

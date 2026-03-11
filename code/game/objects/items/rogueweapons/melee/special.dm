@@ -357,6 +357,29 @@
 		added_def = 2,\
 	)
 
+/obj/item/rogueweapon/katar/silver
+	name = "silver katar"
+	desc = "An exotic weapon that was born from frugality and scarcity, strongly associated with Saint Abenjunne of Astrata. As the folktale goes, this humble preacher belonged to an old village, whose \
+	lyvestock would be hunted every nite by a ferocious verebeaste. Though no weapon of steel-nor-iron could hope to rupture its hide, they had little silver to call upon; save for the abbey's lone \
+	psicrucifix. After praying for guidence, the preacher was said to've been guided by a ray of daelight to the silvered steeple - and through divine heat, melted it into a hand-dagger that would soon \
+	rip the verebeaste apart."
+	icon_state = "silverkatar"
+	force = 19
+	wdefense = 3
+	is_silver = TRUE
+	smeltresult = /obj/item/ingot/silver
+
+/obj/item/rogueweapon/katar/silver/ComponentInitialize()
+	AddComponent(\
+		/datum/component/silverbless,\
+		pre_blessed = BLESSING_NONE,\
+		silver_type = SILVER_TENNITE,\
+		added_force = 0,\
+		added_blade_int = 0,\
+		added_int = 50,\
+		added_def = 2,\
+	)
+
 /obj/item/rogueweapon/knuckles/psydon
 	name = "psydonic knuckles"
 	desc = "A simple piece of harm molded in a holy mixture of steel and silver, finished with three stumps - Psydon's crown - to crush the heretics' garments and armor into smithereens."
@@ -371,6 +394,27 @@
 		/datum/component/silverbless,\
 		pre_blessed = BLESSING_NONE,\
 		silver_type = SILVER_PSYDONIAN,\
+		added_force = 0,\
+		added_blade_int = 0,\
+		added_int = 50,\
+		added_def = 2,\
+	)
+
+/obj/item/rogueweapon/knuckles/silver
+	name = "silver knuckles"
+	desc = "A simple piece of harm that has been molded from pure silver, and further studded to stop errant strikes dead in their tracks. Though ostensibly holy, these heftsome knuckleweights are \
+	more strongly associated with underground pugilistic tournaments; a solid right hook could drive more-than-enough force to blow a yeoman's jaw clean off."
+	icon_state = "silverknuckle"
+	force = 27 //Smaller silver blunt weapons should have a +2-3 damage bonus, compared to their steel counterparts.
+	wdefense = 5
+	is_silver = TRUE
+	smeltresult = /obj/item/ingot/silver
+
+/obj/item/rogueweapon/knuckles/silver/ComponentInitialize()
+	AddComponent(\
+		/datum/component/silverbless,\
+		pre_blessed = BLESSING_NONE,\
+		silver_type = SILVER_TENNITE,\
 		added_force = 0,\
 		added_blade_int = 0,\
 		added_int = 50,\
@@ -858,6 +902,29 @@
 	max_blade_int = 200
 	max_integrity = 200
 
+/obj/item/rogueweapon/handclaw/gronn/silver
+	name = "Silver Ravager Claws"
+	desc = "A trinity of silver claws, forged in defiant reverence of the Old Ways that still permeate throughout the Northern Empty. \
+			The psicruciformic edge shreds through the hide of thralls; resurrected corpses from Fjallic antiquity, said to've been born through faithlessness and despair. \
+			Few shamen hold the strength to wield it, and fewer will speak of what they, alone, know - the true fate of the Weeping Father. \
+			'Here we stand, to turn and face the odds; sacrifice yourself, or bow to lesser gods!'"
+	smeltresult = /obj/item/ingot/silver
+	icon_state = "silverclaws"
+	wdefense = 5
+	max_blade_int = 300
+	max_integrity = 225
+	is_silver = TRUE
+
+/obj/item/rogueweapon/handclaw/gronn/silver/ComponentInitialize()
+	AddComponent(\
+		/datum/component/silverbless,\
+		pre_blessed = BLESSING_NONE,\
+		silver_type = SILVER_TENNITE,\
+		added_force = 0,\
+		added_blade_int = 100,\
+		added_int = 50,\
+		added_def = 2,\
+	)
 
 /obj/item/rogueweapon/handclaw/getonmobprop(tag)
 	. = ..()

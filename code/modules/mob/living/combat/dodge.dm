@@ -121,6 +121,8 @@
 	var/prob2defend = U.defprob
 	if(L.stamina >= L.max_stamina)
 		return FALSE
+	if(src.client)
+		log_combat(src, user, "dodged against")
 	if(L)
 		if(H?.check_dodge_skill())
 			prob2defend = prob2defend + (L.STASPD * 15)
