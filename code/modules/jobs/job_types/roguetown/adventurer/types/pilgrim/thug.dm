@@ -61,7 +61,7 @@
 			H.adjust_skillrank_up_to(/datum/skill/craft/cooking, SKILL_LEVEL_EXPERT, TRUE) // expert cook; expert pan-handler
 			r_hand = /obj/item/cooking/pan
 		if("Knuckles")
-			r_hand = /obj/item/rogueweapon/knuckles/bronzeknuckles
+			r_hand = /obj/item/clothing/gloves/roguetown/knuckles/bronze
 		if("Navaja") //Switchblade aura farm
 			r_hand = /obj/item/rogueweapon/huntingknife/idagger/navaja
 		if("Bare Hands")

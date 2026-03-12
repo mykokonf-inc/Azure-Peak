@@ -76,12 +76,12 @@
 /datum/anvil_recipe/weapons/aalloy/knuckles
 	name = "Knuckles, Decrepit"
 	req_bar = /obj/item/ingot/aalloy
-	created_item = /obj/item/rogueweapon/knuckles/aknuckles
+	created_item = /obj/item/clothing/gloves/roguetown/knuckles/decrepit
 
 /datum/anvil_recipe/weapons/paalloy/knuckles
 	name = "Knuckles, Ancient"
 	req_bar = /obj/item/ingot/purifiedaalloy
-	created_item = /obj/item/rogueweapon/knuckles/paknuckles
+	created_item = /obj/item/clothing/gloves/roguetown/knuckles/ancient
 
 /datum/anvil_recipe/weapons/aalloy/gladius
 	name = "Gladius, Decrepit"
@@ -283,7 +283,7 @@
 /datum/anvil_recipe/weapons/bronze/bronzeknuckle
 	name = "Knuckledusters, Bronze"
 	req_bar = /obj/item/ingot/bronze
-	created_item = /obj/item/rogueweapon/knuckles/bronzeknuckles
+	created_item = /obj/item/clothing/gloves/roguetown/knuckles/bronze
 
 /datum/anvil_recipe/weapons/bronze/gladius
 	name = "Gladius, Bronze"
@@ -610,7 +610,7 @@
 /datum/anvil_recipe/weapons/steel/steelknuckle
 	name = "Knuckles, Steel"
 	req_bar = /obj/item/ingot/steel
-	created_item = /obj/item/rogueweapon/knuckles
+	created_item = /obj/item/clothing/gloves/roguetown/knuckles
 
 /datum/anvil_recipe/weapons/steel/hurlbat
 	name = "Hurlbat"
@@ -945,11 +945,6 @@
 	name = "Katar, Silver"
 	req_bar = /obj/item/ingot/silver
 	created_item = /obj/item/rogueweapon/katar/silver
-
-/datum/anvil_recipe/weapons/silver/knuckle
-	name = "Knuckledusters, Silver"
-	req_bar = /obj/item/ingot/silver
-	created_item = /obj/item/rogueweapon/knuckles/silver
 
 /datum/anvil_recipe/weapons/silver/sword
 	name = "Arming Sword, Silver (+1 Silver)"
@@ -1457,7 +1452,7 @@
 /datum/anvil_recipe/weapons/psy/knuckles
 	name = "Psydonic Knuckledusters"
 	req_bar = /obj/item/ingot/silverblessed
-	created_item = /obj/item/rogueweapon/knuckles/psydon
+	created_item = /obj/item/clothing/gloves/roguetown/knuckles/psydon
 	i_type = "Weapons"
 
 /datum/anvil_recipe/weapons/psy/cudgelmace
@@ -1546,7 +1541,7 @@
 /datum/anvil_recipe/weapons/psy/knuckles/inq
 	name = "Psydonic Knuckles"
 	req_bar = /obj/item/ingot/silverblessed/bullion
-	created_item = /obj/item/rogueweapon/knuckles/psydon
+	created_item = /obj/item/clothing/gloves/roguetown/knuckles/psydon
 	i_type = "Weapons"
 
 /datum/anvil_recipe/weapons/psy/halberd/inq

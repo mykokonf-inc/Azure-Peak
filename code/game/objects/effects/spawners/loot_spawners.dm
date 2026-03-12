@@ -389,7 +389,6 @@
 		/obj/item/rogueweapon/sword/short/silver = 1,
 		/obj/item/rogueweapon/sword/rapier/silver = 1,
 		/obj/item/rogueweapon/katar/silver = 1,
-		/obj/item/rogueweapon/knuckles/silver = 1,
 		/obj/item/rogueweapon/handclaw/gronn/silver = 1,
 		/obj/item/rogueweapon/sword/long/exe/silver = 1,
 		/obj/item/rogueweapon/greatsword/silver = 1,
